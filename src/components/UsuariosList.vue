@@ -50,7 +50,7 @@
 
 <script>
 
-/**import axios from 'axios' 
+import axios from 'axios' 
 
 export default{
   
@@ -58,29 +58,30 @@ export default{
   
   data() {
       return {
-          Vehiculos:false,
-          url:this.http://transacionales.pedi.re/api/personas
+          Vehiculo:false,
+          url:''//this.http://transacionales.pedi.re/api/personas
       }
     },
   
   methods: {
 
     listar() {
-      let res = axios.get(url);
-      this.Vehiculos = res.data;
+      // let res = axios.get(url);
+      this.Vehiculo = {}//res.data;
     },
 
     eliminar(id){
-      let res = axios.delete(url + id);
+      console.log(id)
+      // let res = axios.delete(url + id);
       this.listar();
     },
 
     guardar() {
       if(this.modificar){
-        let res = axios.put(url+this.id, this.vehiculo);
+        // let res = axios.put(url+this.id, this.vehiculo);
  
       }else{
-        let res = axios.post(url, this.vehiculo);
+        // let res = axios.post(url, this.vehiculo);
       }
       this.cerrarModal();
       this.listar();
@@ -113,7 +114,7 @@ export default{
   }
   
 
-}**/
+}
 
 
 

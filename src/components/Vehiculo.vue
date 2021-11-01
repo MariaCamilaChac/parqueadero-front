@@ -53,38 +53,40 @@
 </template>
 
 <script>
-/**
-import axios from 'axios' 
+
+// import axios from 'axios' 
 
 export default{
   
   name: 'vehiculo',
   
   data() {
-      return {
-          Vehiculo:false,
-          url:this.
-      }
-    },
+    return {
+        Vehiculo: {},
+        url:'poner la url que es'
+    }
+  },
   
   methods: {
 
     listar() {
-      let res = axios.get(url);
-      this.Vehiculo = res.data;
+      // let res = axios.get(url);
+      // this.Vehiculo = res.data;
+      this.Vehiculo = {}
     },
 
     eliminar(id){
-      let res = axios.delete(url + id);
+      // let res = axios.delete(url + id);
+      console.log(id)
       this.listar();
     },
 
     guardar() {
       if(this.modificar){
-        let res = axios.put(url+this.id, this.vehiculo);
+        // let res = axios.put(url+this.id, this.vehiculo);
  
       }else{
-        let res = axios.post(url, this.vehiculo);
+        // let res = axios.post(url, this.vehiculo);
       }
       this.cerrarModal();
       this.listar();
@@ -114,14 +116,10 @@ export default{
     },
 
     created() {
-    this.listar();
+      this.listar();
+    }
   }
-  }
-  
-
 }
-
-**/
 
 </script>
 
