@@ -1,14 +1,28 @@
 <template>
-  <h1 class="text-center">Parqueadero Transaccional</h1>
 
-  <button @click="modificar=false; abrirModal();" type="button" class="btn btn-primary my-4">Nuevo</button>
+  <h1 class="text-center">Usuarios</h1>
 
+    <table class="table">
+            <thead class="table-dark">
+             <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Vehiculo</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+    </table>
+
+    <button @click="modificar=false; abrirModal();" type="button" class="btn btn-primary my-4">Nuevo</button>
   <!-- The Modal -->
     <div class="modal" :class="{mostrar: modal}">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->
-          <div class="modal-header">
+          <div class="modal-header"> 
             <h4 class="modal-title">{{tituloModal}}</h4>
             <button @click="cerrarModal();"  type="button" class="close" data-dismiss="modal">
               &times;
@@ -53,38 +67,42 @@
 </template>
 
 <script>
-/**
-import axios from 'axios' 
+
+ //import axios from'axios'
 
 export default{
   
-  name: 'vehiculo',
+  name: 'Vehiculo',
   
   data() {
+      /**return {
+          Vehiculo:{},
+          url:this.fetch('http://transacionales.pedi.re/api/vehiculos'),
+      }**/
       return {
-          Vehiculo:false,
-          url:this.
-      }
+        Vehiculo: {},
+        url:'http://transacionales.pedi.re/api/vehiculos'
+    }
     },
   
   methods: {
 
     listar() {
-      let res = axios.get(url);
-      this.Vehiculo = res.data;
+      
+      this.Vehiculo = {};
     },
 
     eliminar(id){
-      let res = axios.delete(url + id);
+      console.log(id)
       this.listar();
     },
 
     guardar() {
       if(this.modificar){
-        let res = axios.put(url+this.id, this.vehiculo);
+       // let  = axios.put(url+this.id, this.vehiculo);
  
       }else{
-        let res = axios.post(url, this.vehiculo);
+        //let  = axios.post(url, this.vehiculo);
       }
       this.cerrarModal();
       this.listar();
@@ -115,14 +133,10 @@ export default{
 
     created() {
     this.listar();
-  }
-  }
-  
+  },
+  },
 
-}
-
-**/
-
+};
 </script>
 
 <style>

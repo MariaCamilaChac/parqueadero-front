@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <router-link to="/" class="navbar-brand">Parqueadero Transaccional</router-link>
+      <router-link to="/" class="navbar-brand">Usuarios</router-link>
       <div class="navbar-nav mr-auto">
        
         <li class="nav-item">
@@ -18,6 +18,6 @@
 
 <script>
 export default {
-  name: "app"
+  name: "#app"
 };
 </script>
