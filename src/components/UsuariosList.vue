@@ -59,7 +59,7 @@ export default{
   data() {
       return {
           Vehiculo:{},
-          url:this.fetch('http://transacionales.pedi.re/api/personas')
+          url:'http://transacionales.pedi.re/api/personas'
       }
     },
   

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const customAxios = axios.create({
-    baseURL: 'http://transacionales.pedi.re/api/',
+    baseURL: 'http://transacionales.pedi.re',
     headers: {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": "*"

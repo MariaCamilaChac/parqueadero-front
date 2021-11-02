@@ -19,16 +19,20 @@
           <!-- Modal body -->
           <div class="modal-body">
             <div class="my-4">
-              <label for="placa">ID Parqueadero</label>
-              <input v-model="Parqueadero.idParqueadero" type="text" class="form-control" id="idParqueadero" placeholder="ID">
+              <label for="idparqueadero">ID Parqueadero</label>
+              <input v-model="Parqueadero.id" type="hidden" class="form-control" id="id" placeholder="ID">
             </div>
             <div class="my-4">
-              <label for="marca">Nombre</label>
+              <label for="nombre">Nombre</label>
               <input v-model="Parqueadero.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre">
             </div>
             <div class="my-4">
-              <label for="TipoVehiculo">Ubicación</label>
-              <input v-model="Parqueadero.ubicacion" type="text" class="form-control" id="ubicacion" placeholder="">
+              <label for="ubicacion">Ubicación</label>
+              <input v-model="Parqueadero.direccion" type="text" class="form-control" id="direccion" placeholder="">
+            </div>
+            <div class="my-4">
+              <label for="ubicacion">Bahías</label>
+              <input v-model="Parqueadero.numero_bahias" type="number" class="form-control" id="numero_bahias" placeholder="">
             </div>
           </div>
 
@@ -53,19 +57,21 @@
           <th scope="col">ID Parqueadero</th>
           <th scope="col">Nombre</th>
           <th scope="col">Ubicación</th>
+          <th scope="col"># Bahias</th>
           <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="parq in Parqueadero" :key="parq.idParqueadero">
-          <th scope="row">{{ parq.idParqueadero }}</th>
-          <td>{{ parq.nombre }}</td>
-          <td>{{ parq.ubicacion}}</td>
+        <tr v-for="parq in Parqueaderos" :key="parq.id">
+          <th scope="row">{{ parq.id }}</th>
+          <td>{{ parq.Nombre }}</td>
+          <td>{{ parq.Ubicacion}}</td>
+          <td>{{ parq.bahias.length}}</td>
           <td>
-            <button  @click="modificar=true; abrirModal(parq);" class="btn btn-warning">Editar</button>
+            <button  @click="modificar=true; abrirModal(parq.id);" class="btn btn-warning">Editar</button>
           </td>
           <td>
-            <button @click="eliminar(parq.idParqueadero)" class="btn btn-danger">
+            <button @click="eliminar(parq.id)" class="btn btn-danger">
               Eliminar
             </button>
           </td>
@@ -92,10 +98,14 @@ export default{
 
       this.listar()
       return {
-        //Parqueadero: {},
-        //Parqueaderos: [],
-        url:'parqueaderos',
+        url:'/api/parqueaderos/',
+        Parqueadero: {
+          nombre:'yy',
+          ubicacion:'yuu',
+        },
+        Parqueaderos: [],
 
+        request:{},
                
         modificar:true,
         modal:0,
@@ -107,42 +117,51 @@ export default{
 
     async listar() {
       
-      let Parqueadero = await axios.get(this.url);
-      this.Parqueadero = Parqueadero.data.data
+      let Parqueadero = await axios.get('/api/parqueaderos');
+      this.Parqueaderos = Parqueadero.data.data
+
       //this.Parqueadero = {}//Parqueadero.data
-      console.log(Parqueadero)
+      console.log(this.Parqueaderos)
 
     },
 
-    eliminar(id){
-      console.log(id)
+    async eliminar(id){
+      await axios.delete(this.url+id);
       this.listar();
     },
 
-    guardar() {
+    async guardar() {
       if(this.modificar){
-       // let  = axios.put(url+this.id, this.vehiculo);
+        console.log(this.url+this.Parqueadero.id)
+        console.log(this.Parqueadero)
+        await axios.put(this.url+this.Parqueadero.id, this.Parqueadero);
  
       }else{
-        //let  = axios.post(url, this.vehiculo);
+        console.log(this.Parqueadero)
+        await axios.post('/api/parqueaderos', this.Parqueadero);
       }
       this.cerrarModal();
       this.listar();
     },
 
-    abrirModal(data ={}){
+    async abrirModal(id){
       this.modal=1;
       if(this.modificar){
-        this.idParqueadero=data.idParqueadero;
+        let res = await axios.get(this.url+id)
+        this.Parqueadero.id=res.data.id;
         this.Parqueadero.tituloModal="Modificar Parqueadero";
-        this.Parqueadero.nombre=data.nombre;
-        this.Parqueadero.ubicacion=data.ubicacion;
+        this.Parqueadero.nombre=res.data.Nombre;
+        this.Parqueadero.direccion=res.data.Ubicacion;
+        this.Parqueadero.numero_bahias=res.data.bahias.length;
+        console.log(res)  
       }else{
         this.id=0;
+  
         this.Parqueadero.tituloModal="Crear Parqueadero";
-        this.Parqueadero.idParqueadero='';
+        this.Parqueadero.id='';
         this.Parqueadero.nombre='';
-        this.Parqueadero.ubicacion='';
+        this.Parqueadero.direccion='';
+        this.Parqueadero.numero_bahias='';
       }
     },
 
