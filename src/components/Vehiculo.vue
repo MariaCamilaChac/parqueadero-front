@@ -1,22 +1,9 @@
 <template>
-
+  
   <h1 class="text-center">Usuarios</h1>
+  
 
-    <table class="table">
-            <thead class="table-dark">
-             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Vehiculo</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-    </table>
-
-    <button @click="modificar=false; abrirModal();" type="button" class="btn btn-primary my-4">Nuevo</button>
+  <button @click="modificar=false; abrirModal();" type="button" class="btn btn-primary my-4">Nuevo</button>
   <!-- The Modal -->
     <div class="modal" :class="{mostrar: modal}">
       <div class="modal-dialog">
@@ -32,20 +19,20 @@
           <!-- Modal body -->
           <div class="modal-body">
             <div class="my-4">
-              <label for="placa">placa</label>
+              <label for="placa">Placa</label>
               <input v-model="Vehiculo.placa" type="text" class="form-control" id="placa" placeholder="Vehiculo">
             </div>
             <div class="my-4">
-              <label for="marca">descripcion</label>
+              <label for="marca">Descripcion</label>
               <input v-model="Vehiculo.marca" type="text" class="form-control" id="marca" placeholder="Marca del Vehiculo">
             </div>
             <div class="my-4">
-              <label for="TipoVehiculo"></label>
-              <input v-model="Vehiculo.tipo" type="number" class="form-control" id="tipo" placeholder="Tipo de Vehiculo">
+              <label for="TipoVehiculo">Tipo de Vehículo</label>
+              <input v-model="Vehiculo.tipo" type="text" class="form-control" id="tipo" placeholder="Tipo de Vehiculo">
             </div>
             <div class="my-4">
-              <label for="TipoVehiculo"></label>
-              <input v-model="Vehiculo.idPersona" type="number" class="form-control" id="idpersona" placeholder="Propietario del Vehiculo">
+              <label for="idpersona">Propietario</label>
+              <input v-model="Vehiculo.idPersona" type="integer" class="form-control" id="idpersona" placeholder="Propietario del Vehiculo">
             </div>
           </div>
 
@@ -62,7 +49,35 @@
           </div>
         </div>
       </div>
+
     </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Placa</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Propietario</th>
+          <th scope="col" colspan="2" class="text-center">Accion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="veh in Vehiculo" :key="veh.placa">
+          <th scope="row">{{ veh.placa }}</th>
+          <td>{{ veh.Marca }}</td>
+          <td>{{ veh.tipo }}</td>
+          <td>{{ veh.idpersona }}</td>
+          <td>
+            <button  @click="modificar=true; abrirModal(veh);" class="btn btn-warning">Editar</button>
+          </td>
+          <td>
+            <button @click="eliminar(veh.placa)" class="btn btn-danger">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   
 </template>
 
@@ -108,12 +123,11 @@ export default{
       this.listar();
     },
 
-    abrirModal(data={}){
+    abrirModal(data ={}){
       this.modal=1;
       if(this.modificar){
-        this.id=data.id;
+        this.placa=data.placa;
         this.tituloModal="Modificar Vehiculo";
-        this.Vehiculo.placa='';
         this.Vehiculo.marca='';
         this.Vehiculo.idPersona='';
         this.Vehiculo.idtipo='';
@@ -133,8 +147,10 @@ export default{
 
     created() {
     this.listar();
+    },
   },
-  },
+
+  
 
 };
 </script>
@@ -148,4 +164,10 @@ export default{
   color: #2c3e50;
   margin-top: 60px;
 }
+  .mostrar{
+    display: list-item;
+    opacity: 1;
+    background: rgba(75, 56, 143, 0.705);
+  }
+
 </style>
