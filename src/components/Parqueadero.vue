@@ -20,15 +20,15 @@
           <div class="modal-body">
             <div class="my-4">
               <label for="placa">ID Parqueadero</label>
-              <input v-model="Parqueadero.idParqueadero" type="text" class="form-control" id="placa" placeholder="ID">
+              <input v-model="Parqueadero.idParqueadero" type="text" class="form-control" id="idParqueadero" placeholder="ID">
             </div>
             <div class="my-4">
               <label for="marca">Nombre</label>
-              <input v-model="Parqueadero.nombre" type="text" class="form-control" id="marca" placeholder="Nombre">
+              <input v-model="Parqueadero.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre">
             </div>
             <div class="my-4">
               <label for="TipoVehiculo">Ubicación</label>
-              <input v-model="Parqueadero.ubicacion" type="text" class="form-control" id="tipo" placeholder="">
+              <input v-model="Parqueadero.ubicacion" type="text" class="form-control" id="ubicacion" placeholder="">
             </div>
           </div>
 
@@ -77,11 +77,12 @@
 
 <script>
 
- import axios from'axios'
+ import axios from '../axios'
 
 export default{
   
   name: 'Parqueadero',
+  
   
   data() {
       /**return {
@@ -91,14 +92,15 @@ export default{
 
       this.listar()
       return {
-        Parqueadero: {},
+        //Parqueadero: {},
         //Parqueaderos: [],
-        url:'http://transacionales.pedi.re/api/parqueaderos',
-        
+        url:'parqueaderos',
+
+               
         modificar:true,
         modal:0,
         tituloModal:'',
-    }
+    };
     },
   
   methods: {
@@ -106,9 +108,9 @@ export default{
     async listar() {
       
       let Parqueadero = await axios.get(this.url);
-      this.Parqueaderos = Parqueadero.data
+      this.Parqueadero = Parqueadero.data.data
       //this.Parqueadero = {}//Parqueadero.data
-      console.log(this.Parqueaderos)
+      console.log(Parqueadero)
 
     },
 
@@ -152,8 +154,6 @@ export default{
     this.listar();
     },
   },
-
-  
 
 };
 </script>

@@ -83,7 +83,7 @@
 
 <script>
 
- //import axios from'axios'
+ import axios from'axios'
 
 export default{
   
@@ -96,20 +96,29 @@ export default{
       }**/
       this.listar()
       return {
-        Vehiculo: {},
+        //Vehiculo: {},
         url:'http://transacionales.pedi.re/api/vehiculos',
+        
+        Vehiculo:{
+        placa:'yy',
+        marca:'',
+        tipo:'yuu',
+        propietario:'',
+        
+      },
 
         modificar:true,
         modal:0,
         tituloModal:'',
-    }
+    };
     },
   
   methods: {
 
-    listar() {
-      
-      this.Vehiculo = {};
+    async listar() {
+      let res = await axios.get(this.url)
+      this.Vehiculo = res;
+      console.log(this.Vehiculo)
     },
 
     eliminar(id){
@@ -117,12 +126,15 @@ export default{
       this.listar();
     },
 
-    guardar() {
+    async guardar() {
       if(this.modificar){
-       // let  = axios.put(url+this.id, this.vehiculo);
+        let res = await axios.put(this.url+this.id, this.vehiculo);
+        console.log(res)
  
       }else{
-        //let  = axios.post(url, this.vehiculo);
+        let res = await axios.post(this.url, this.vehiculo);
+        console.log(res)
+    
       }
       this.cerrarModal();
       this.listar();
