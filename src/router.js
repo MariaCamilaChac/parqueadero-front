@@ -12,6 +12,12 @@ const routes =  [
     path: "/Vehiculo",
     name: "agregar-vehiculo",
     component: () => import("./components/Vehiculo")
+  },
+
+  {
+    path: "/Parqueadero",
+    name: "parqueaderos",
+    component: () => import("./components/Parqueadero")
   }
 ];
 
